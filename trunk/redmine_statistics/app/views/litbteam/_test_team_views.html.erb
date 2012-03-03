@@ -1,0 +1,48 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'demo_page', :plugin => 'redmine_statistics' %>
+  <%= stylesheet_link_tag 'demo_table', :plugin => 'redmine_statistics' %>
+  <%= javascript_include_tag 'jquery.dataTables.js', :plugin => 'redmine_statistics' %>
+  <script type="text/javascript" charset="utf-8">
+    j$(document).ready(function(){
+      j$('#example').dataTable();
+    });
+  </script>
+<% end %>
+
+<div id="dt_example">
+  <div id="container_big">
+    <div id="demo">
+      <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Found Issues</th>
+            <th>NotABug Issues</th>
+            <th>FixReopen Issues</th>
+            <th>FixTest Issues</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @person_hash.each do |t_key, t_value| %>
+            <tr class="gradeC">
+              <td><%= User.find(t_key).name %></td>
+              <td><%= t_value[5] %></td>
+              <td><%= t_value[6] %></td>
+              <td><%= t_value[7] %></td>
+              <td><%= t_value[8] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th><%= Group.find(@group_id).to_s %> </th>
+            <th><%= @group_total[5] %></th>
+            <th><%= @group_total[6] %></th>
+            <th><%= @group_total[7] %></th>
+            <th><%= @group_total[8] %></th>
+          </tr>
+      </tfoot>
+     </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+
+  project_id: 1
+
+  project_name: MyString
+
+  issues_number: 1
+
+  priority_id: 1
+
+  priority_name: MyString
+
+  tracker_id: 1
+
+  tracker_name: MyString
+
+  date: 
+
+two:
+  id: 2
+
+  project_id: 1
+
+  project_name: MyString
+
+  issues_number: 1
+
+  priority_id: 1
+
+  priority_name: MyString
+
+  tracker_id: 1
+
+  tracker_name: MyString
+
+  date: 
+

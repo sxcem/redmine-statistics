@@ -1,0 +1,55 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'demo_page', :plugin => 'redmine_statistics' %>
+  <%= stylesheet_link_tag 'demo_table', :plugin => 'redmine_statistics' %>
+  <%= javascript_include_tag 'jquery', :plugin => 'redmine_statistics' %>
+  <%= javascript_include_tag 'jquery.dataTables.js', :plugin => 'redmine_statistics' %>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+      $('#example').dataTable();
+    });
+  </script>
+<% end %>
+
+<div id="dt_example">
+  <div id="container_big">
+    <div id="demo">
+      <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Priority Name</th>
+            <th>Found Issues</th>
+            <th>NotABug Issues</th>
+            <th>FixReopen Issues</th>
+            <th>FixTest Issues</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @personal_priority_issues.each do |personal_priority_issue| %>
+          <tr class="gradeA">
+            <td><%= personal_priority_issue.dev_name %></td>
+            <td><%= personal_priority_issue.priority_name %></td>
+            <td><%= personal_priority_issue.found_issues%> </td>
+            <td><%= personal_priority_issue.not_issues %></td>
+            <td><%= personal_priority_issue.fix_reopen_issues %></td>
+            <td><%= personal_priority_issue.fixed_issues%> </td>
+            <td><%= personal_priority_issue.created_on.to_s %></td>
+          </tr>
+        <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th></th>
+            <th>--</th>
+            <th><%= @found_issues %></th>
+            <th><%= @not_issues %></th>
+            <th><%= @fix_reopen_issues %></th>
+            <th><%= @fixed_issues %></th>
+            <th>Date</th>
+          </tr>
+      </tfoot>
+     </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+﻿<div id = "statistic">
+  <h2>STATISTICS</h2>
+  <ul class="outside">
+	<li>goals</li>
+      <ul class="inside">
+		<li>通过报表的统计使项目组成员和业务部门了解目前项目的进行状况</li>
+		<li>通过对数据的分析和统计明确职责和状态，有效推进问题的解决速度</li>
+		<li>为绩效管理提供历史数据以便进行更精准的KPI评估</li>
+	  </ul>
+	<li>在这里，你可以查看项目的进行情况，可以了解别人的劳动成果...希望每个人都能从这里获益</li>
+	<li>如果有任何需要改进的意见，请点击右下角的邮箱联系我</li>
+  </ul>
+
+  <table id="incenter" cellspacing="10">
+    <tr>
+      <td><%= link_to(image_tag("issues_trend.png", :plugin => 'redmine_statistics'), { :controller => "trend", :action => 'index' } ) %></td>
+      <td><%= link_to(image_tag("ongoing_issues.png", :plugin => 'redmine_statistics'), { :controller => "ongoing", :action => 'index' } ) %></td>
+      <td><%= link_to(image_tag("project_issues.png", :plugin => 'redmine_statistics'), { :controller => "litbteam", :action => 'index' } ) %></td>
+      <td><%= link_to(image_tag("personal_issues.png", :plugin => 'redmine_statistics'), { :controller => "litbperson", :action => 'index' } ) %></td>
+    </tr>
+    <tr class="shadow">
+      <td><%= link_to "Issues Trend", :controller => "trend", :action => "index" %></td>
+      <td><%= link_to "Ongoing Issues", :controller => "ongoing", :action => "index" %></td>
+      <td><%= link_to "Team Issues Statistics", :controller => "litbteam", :action => "index" %></td>
+      <td><%= link_to "Personal Issues Statistics", :controller => "litbperson", :action => "index" %></td>
+    </tr>
+  </table>
+  <br/>
+  <div id="atbottom">
+  <%= mail_to "houyining@lightinthebox.com", image_tag("contact_me.png", :plugin => 'redmine_statistics'), :encode => "javascript"%>
+  </div>
+</div>
+
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'statistics', :plugin => 'redmine_statistics' %>
+<% end %>

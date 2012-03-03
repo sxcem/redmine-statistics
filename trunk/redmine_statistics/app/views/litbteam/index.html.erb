@@ -1,0 +1,100 @@
+<% content_for :header_tags do %>
+ <%= stylesheet_link_tag 'statistics', :plugin => 'redmine_statistics' %>
+ <%= javascript_include_tag 'WdatePicker.js', :plugin => 'redmine_statistics' %>
+ <%= javascript_include_tag 'statistics', :plugin => 'redmine_statistics' %>
+<% end %>
+
+<div id="statistic">
+  <h2>TEAM ISSUES</h2>
+  <div id="myheader">
+    <div class="buttons">
+      <a href=<%= @back_url %> class="negative">
+        <%= image_tag('back.png', :plugin => 'redmine_statistics') %>
+        Back
+      </a>
+      <% form_tag(:action => 'index') do %>
+      <div class="choice">
+        <span>报表类型</span>
+        <select name = "chart_id" onchange="checkTeamChart(this)">
+          <option value="1">项目视角-开发团队报表</option>
+          <option value="2">项目视角-测试团队报表</option>
+          <option value="3">项目视角-开发团队条形图</option>
+          <option value="4">项目视角-测试团队条形图</option>
+          <option value="5">团队视角-开发团队报表</option>
+          <option value="6">团队视角-测试团队报表</option>
+        </select>
+        <span id="l_team" style="display:none">团队名:</span>
+        <select style="display:none" name="group_id" id="s_team">
+          <% @teams.each do |team| %>
+          <option value=<%= team.id %>><%= team %></option>
+          <% end %>
+        </select>
+        <span>项目列表:</span>
+        <select name="project_id" id="s_project" onchange="<%= remote_function(:update => "version_container",
+                                                                               :url => {:controller => 'statistics', :action => 'versions_ajax'},
+                                                                               :with => "'project_id='+value",
+                                                                               :complete => "new Effect.Highlight('version_container')")%>" onblur="checkVersion(this)">
+          <% @projects.each do |project| %>
+          <option value=<%= project.id %>><%= project.name %></option>
+          <% end %>
+        </select>
+        <span id="version_container">
+          <span id="l_version">目标版本:</span>
+          <select name="version_id" id="s_version">
+            <%  @versions.each do |version| %>
+            <option value=<%= version.id %>><%= version.name %></option>
+            <% end %>
+            <option value=" ">未指定目标版本</option>
+            <option value="all">所有目标版本</option>
+          </select>
+        </span>
+        <span id="l_observe" style="display:none">考察类型</span>
+        <select name = "observe_id" id="s_observe" style="display:none">
+          <option value ="all">所有类型</option>
+          <option value="1">investigated issues</option>
+          <option value="2">resolved issues</option>
+          <option value="3">av_inves time</option>
+          <option value="4">reopened issues</option>
+          <option value="5">regression issues</option>
+          <option value="6">found issues</option>
+          <option value="7">notabug issues</option>
+          <option value="8">fixreopen issues</option>
+          <option value="9">fixed issues</option>
+        </select>
+        <span>开始日期:</span>
+        <input name="date_from" class="Wdate" type="text" onClick="WdatePicker()"/>
+        <span>结束日期:</span>
+        <input name="date_to" class="Wdate" type="text" onClick="WdatePicker()"/>
+        </div>
+		<br>
+		<br>		
+        <div class="toright">
+          <button type="submit" class="positive">
+            <%= image_tag('database_search.png', :plugin => 'redmine_statistics') %>
+            Generate
+          </button>
+          <button type="reset" class="positive">
+            <%= image_tag('search_cancel.png', :plugin => 'redmine_statistics') %>
+            Reset
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div id="centent">
+  <% if params[:chart_id] == '2' %>
+    <%= render(:partial => "team_test_issues") %>
+  <% elsif params[:chart_id] == '3' %>
+    <%= render(:partial => "bar_chart") %>
+  <% elsif params[:chart_id] == '4' %>
+    <%= render(:partial => "test_bar_chart") %>
+  <% elsif params[:chart_id] == '5' %>
+    <%= render(:partial => "team_views") %>
+  <% elsif params[:chart_id] == '6' %>
+    <%= render(:partial => "test_team_views") %>
+  <% else %>
+    <%= render(:partial => "team_issues") %>
+  <% end %>
+</div>
+<%= @mycount %>

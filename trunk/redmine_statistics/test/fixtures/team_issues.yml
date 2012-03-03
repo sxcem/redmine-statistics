@@ -1,0 +1,39 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+
+  team_name: MyString
+
+  user_id: 1
+
+  dev_name: MyString
+
+  investigating_issues: 1
+
+  resolved_issues: 1
+
+  average_inves_time: 1
+
+  reopened_issues: 1
+
+  date: 2010-09-15 15:20:36
+
+two:
+  id: 2
+
+  team_name: MyString
+
+  user_id: 1
+
+  dev_name: MyString
+
+  investigating_issues: 1
+
+  resolved_issues: 1
+
+  average_inves_time: 1
+
+  reopened_issues: 1
+
+  date: 2010-09-15 15:20:36
+

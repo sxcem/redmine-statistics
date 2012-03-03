@@ -1,0 +1,81 @@
+<% content_for :header_tags do %>
+ <%= stylesheet_link_tag 'statistics', :plugin => 'redmine_statistics' %>
+ <%= javascript_include_tag 'WdatePicker.js', :plugin => 'redmine_statistics' %>
+ <%= javascript_include_tag 'statistics', :plugin => 'redmine_statistics' %>
+<% end %>
+
+<div id="statistic">
+  <h2>PERSONAL ISSUES</h2>
+  <div id="myheader">
+    <div class="buttons">
+      <a href=<%= @back_url %> class="negative">
+        <%= image_tag('back.png', :plugin => 'redmine_statistics') %>
+        Back
+      </a>
+      <% form_tag(:action => 'index') do %>
+        <div class="choice">
+        <span>报表式样</span>
+        <select name="chart_id" onchange="checkPersonalChart(this)">
+          <option value="1">标准报表</option>
+          <option value="2">详细报表</option>
+          <option value="3">趋势图</option>
+        </select>
+        <span>角色:</span>
+        <select name="role_id">
+          <option value = "1">开发人员</option>
+          <option value = "2">测试人员</option>
+        </select>
+        <span>姓名:</span>
+        <select name ="user_id" id="s_user">
+          <% @users.each do |user| %>
+          <option value=<%= user.id %>><%= user.name %></option>
+          <% end %>
+        </select>
+        <span id="l_priority" style="display:none">优先级:</span>
+        <select name="priority_id" id="s_priority" style="display:none">
+          <option value="all">所有优先级</option>
+          <% @priorities.each do |priority| %>
+            <option value=<%= priority.id %>><%= priority.name %></option>
+          <% end %>
+        </select>
+        <span>开始日期:</span>
+        <input name="date_from" class="Wdate" type="text" onClick="WdatePicker()"/>
+        <span>结束日期:</span>
+        <input name="date_to" class="Wdate" type="text" onClick="WdatePicker()"/>
+        </div>
+		<br>
+		<br>
+        <div class="toright">
+          <button type="submit" class="positive">
+            <%= image_tag('database_search.png', :plugin => 'redmine_statistics') %>
+            Generate
+          </button>
+          <button type="reset" class="positive">
+            <%= image_tag('search_cancel.png', :plugin => 'redmine_statistics') %>
+            Reset
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div id="centent">
+  <% if @chart_id == '1' %>
+    <% unless @is_tester %>
+      <%= render(:partial => "defaults")  %>
+    <% else %>
+      <%= render(:partial => "defaults_test") %>
+    <% end %>
+  <% elsif @chart_id == '2' %>
+    <% unless @is_tester %>
+      <%= render(:partial => "details") %>
+    <% else %>
+      <%= render(:partial => "details_test") %>
+  <% end %>
+  <% elsif @chart_id == '3' %>
+      <%= render(:partial => "personal_trend") %>
+  <% else %>
+    <%= render(:partial => "defaults")  %>
+  <% end  %>
+</div>
+<%= @count  %>

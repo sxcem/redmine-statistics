@@ -1,0 +1,60 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'demo_page', :plugin => 'redmine_statistics' %>
+  <%= stylesheet_link_tag 'demo_table', :plugin => 'redmine_statistics' %>
+  <%= javascript_include_tag 'jquery.dataTables.js', :plugin => 'redmine_statistics' %>
+  <script type="text/javascript" charset="utf-8">
+    j$(document).ready(function(){
+      j$('#example').dataTable();
+    });
+  </script>
+<% end %>
+
+<div id="dt_example">
+  <div id="container_big">
+    <div id="demo">
+      <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+        <thead>
+          <tr>
+            <th>Issue Number</th>
+            <th>Project</th>
+            <th>Current Project</th>
+            <th>Priority</th>
+            <th>Assigned To</th>
+            <th>Tracker</th>
+            <th>Start Date</th>
+            <th>Update Date</th>
+            <th>Wait Time(day)</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @other_project_inves.each do |key,value| %>
+          <tr class="gradeX">
+            <td><%= link_to key, :controller => 'issues', :action => 'show', :id => key %></td>
+            <td><%= value[0]%> </td>
+            <td><%= value[1] %> </td>
+            <td><%= value[2] %></td>
+            <td><%= value[3] %></td>
+            <td><%= value[4] %></td>
+            <td><%= value[5].to_s %></td>
+            <td><%= value[6].to_date %></td>
+            <td><%= value[7] %></td>
+          </tr>
+        <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Issue Number</th>
+            <th>Project</th>
+            <th>Current Project</th>
+            <th>Priority</th>
+            <th>Assigned To</th>
+            <th>Tracker</th>
+            <th>Start Date</th>
+            <th>Update Date</th>
+            <th>Wait Time(day)</th>
+          </tr>
+      </tfoot>
+     </table>
+    </div>
+  </div>
+</div>

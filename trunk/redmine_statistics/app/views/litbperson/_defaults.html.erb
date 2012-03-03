@@ -1,0 +1,58 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'demo_page', :plugin => 'redmine_statistics' %>
+  <%= stylesheet_link_tag 'demo_table', :plugin => 'redmine_statistics' %>
+  <%= javascript_include_tag 'jquery.dataTables.js', :plugin => 'redmine_statistics' %>
+  <script type="text/javascript" charset="utf-8">
+    j$(document).ready(function(){
+      j$('#example').dataTable();
+    });
+  </script>
+<% end %>
+
+<div id="dt_example">
+  <div id="container_big">
+    <div id="demo">
+      <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Investigated Issues</th>
+            <th>Resolved Issues</th>
+            <th>Average Inverstigation Time(day)</th>
+            <th>Reopened Issues</th>
+            <th>Regression Issues</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @personal_issues.each do |personal_issue| %>
+          <tr class="gradeU">
+            <td><%= personal_issue.p_name %></td>
+            <td><%= personal_issue.investigating_issues %></td>
+            <td><%= personal_issue.resolved_issues %></td>
+            <% if personal_issue.investigating_issues != 0 %>
+            <td><%= format("%.1f", ((personal_issue.inves_time.to_f/personal_issue.investigating_issues)/(60.0*24))) %></td>
+            <% else %>
+            <td>0</td>
+            <% end %>
+            <td><%= personal_issue.reopened_issues %></td>
+            <td><%= personal_issue.regression_issues %></td>
+            <td><%= personal_issue.created_on.to_s %></td>
+          </tr>
+        <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>合计</th>
+            <th><%= @investigated_issues %></th>
+            <th><%= @resolved_issues %></th>
+            <th><%= @average_inves_time %></th>
+            <th><%= @reopened_issues %></th>
+            <th><%= @regression_issues %>
+            <th>--</th>
+          </tr>
+      </tfoot>
+     </table>
+    </div>
+  </div>
+</div>
