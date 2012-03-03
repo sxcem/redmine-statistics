@@ -1,0 +1,8 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'statistics', :plugin => 'redmine_statistics' %>
+<% end %>
+<div id = "statistic">
+  <div id = "incenter">
+    <%= image_tag(@bar_chart, :alt => "抱歉啊！服务器暂时很忙，请稍后再试一下吧！") %>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+Redmine安装 
+ 
+
+1、下载Redmine，http://www.redmine.org/wiki/redmine/Download
+2、下载Ruby 1.8.7。目前Redmine的版本还不支持1.9的Ruby.http://www.ruby-lang.org/en/downloads/
+3、安装Rails，打开Ruby的命令行，输入gem install rails -v=2.3.5和gem install rack -v=1.01自动安装，这个根据网速，时间不等，我的大概花了10分钟左右。
+4、运行gem install mysql，安装MySQL的C语言库，rails 2.3以后已经将MySQL的C语言库移出，所以要另外安装。(Redmine支持MySQL/postgresSQL/sqlite等，推荐使用MySQL) 
+
+ 
+
+5、支持的数据库为MySQL/postgresSQL/sqlite；对于MySQL，创建数据库。create database redmine character set utf8;
+6、解压下载的Redmine，拷贝config/database.yml.example到config/database.yml里面，并编辑production环境对应的数据配置信息。如下： 
+
+ production:
+
+  adapter: mysql
+  database: redmine
+  host: localhost
+  username: redmine
+  password: my_password
+
+9、在命令行进入到redmine的解压目录，运行命令rake generate_session_store，生成Session密钥。
+10、运行命令rake db:migrate RAILS_ENV="production"创建数据库。
+
+如果遇到问题错误，syntax error on line 14, col 2: `  encoding: utf8'；这是因为password前面要有一个空格。
+如果出现：Mysql::Error: query: not connected: CREATE TABLE `schema_migrations` (`version` 
+varchar(255) NOT NULL) ENGINE=InnoDB 
+这是因为MySQL的版本不匹配的问题，使用低版本的MySQL的libmySQL.dllhttp://instantrails.rubyforge.org/svn/trunk/InstantRails-win/InstantRails/mysql/bin/ 将其保存到ruby的bin目录下面
+11、rake redmine:load_default_data RAILS_ENV="production"该命令将填充默认的配置数据。该命令运行过程中需要选择语言，一般输入zh（ 简体中文）
+12、运行服务器：ruby script/server webrick -e production  使用admin/admin登录
+
+
+13、由于默认的环境是使用的webrick的服务器，性能很低。所以更换为mongrel的服务器，安装
+
+gem install mongrel
+14、启动服务器，进入到redmine安装目录，运行mongrel_rails start -e production。进入，这个时候会感觉速度有明显提升。
+
+http://labs.cloudream.name/google/chart/api.html
+google chart中文API
+
+http://www.redmine.org/wiki/1/Plugin_List
+redmine 插件列表
+
+http://www.redmine.org/wiki/redmine/Plugin_Tutorial
+redmine 插件官方教程
+
+gchartrb api
+http://gchartrb.rubyforge.org/

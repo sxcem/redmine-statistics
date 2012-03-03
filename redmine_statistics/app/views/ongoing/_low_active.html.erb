@@ -1,0 +1,56 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'demo_page', :plugin => 'redmine_statistics' %>
+  <%= stylesheet_link_tag 'demo_table', :plugin => 'redmine_statistics' %>
+  <%= javascript_include_tag 'jquery.dataTables.js', :plugin => 'redmine_statistics' %>
+  <script type="text/javascript" charset="utf-8">
+    j$(document).ready(function(){
+      j$('#example').dataTable();
+    });
+  </script>
+<% end %>
+<div id="dt_example">
+  <div id="container">
+    <div id="demo">
+      <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+        <thead>
+          <tr>
+            <th>Issue Number</th>
+            <th>Project</th>
+            <th>Version</th>
+            <th>Priority</th>
+            <th>Tracker</th>
+            <th>Assigned To</th>
+            <th>Start Date</th>
+            <th>Wait Time(day)</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @issues.each do |issue| %>
+          <tr class="gradeX">
+            <td><%= link_to issue.id, :controller => 'issues', :action => 'show', :id => issue.id %></td>
+            <td><%= issue.project.name %></td>
+            <td><%= issue.fixed_version_id.blank? ? "未指定目标版本" : Version.find(issue.fixed_version_id).name %> </td>
+            <td><%= issue.priority.name %></td>
+            <td><%= issue.tracker.name %></td>
+            <td><%= User.find(issue.assigned_to_id) unless issue.assigned_to_id.blank? %></td>
+            <td><%= issue.created_on.to_date %></td>
+            <td><%= (@now_time-issue.updated_on.to_i)/(60*60*24) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Issue Number</th>
+            <th>Project</th>
+            <th>Version</th>
+            <th>Priority</th>
+            <th>Tracker</th>
+            <th>Assigned To</th>
+            <th>Start Date</th>
+            <th>Wait Time(day)</th>
+          </tr>
+      </tfoot>
+     </table>
+    </div>
+  </div>
+</div>

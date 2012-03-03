@@ -1,0 +1,63 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'demo_page', :plugin => 'redmine_statistics' %>
+  <%= stylesheet_link_tag 'demo_table', :plugin => 'redmine_statistics' %>
+
+<% end %>
+
+<div id="dt_example">
+  <div id="container_big">
+    <div id="demo">
+      <table cellpadding="0" cellspacing="0" border="0" class="display">
+        <thead>
+          <tr>
+            <th>NAME</th>
+            <th>Investigated Issues</th>
+            <th>Resolved Issues</th>
+            <th>Average Investigation Time(day)</th>
+            <th>Reopened Issues</th>
+            <th>Regression Issues</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+
+        <% @team_dev_data_hash.each do |key, value| %>
+        <tbody>
+          <tr class="gradeA" style="font:bold">
+            <td><%= key %></td>
+            <td><%= value[0] %></td>
+            <td><%= value[1] %></td>
+            <td><%= value[2] %></td>
+            <td><%= value[3] %></td>
+            <td><%= value[4] %></td>
+            <td><img src="/images/more_details.png" alt="显示组员详情" onclick="show_details(this)"><span style="display:none">&nbsp;&nbsp;隐藏详情</span><span>&nbsp;&nbsp;显示详情</span></td>
+          </tr>
+        </tbody>
+        <tbody style="display:none">
+          <% @team_dev_hash[key].each do |t_key, t_value| %>
+            <tr class="gradeC">
+              <td><%= User.find(t_key).name %></td>
+              <td><%= t_value[0] %></td>
+              <td><%= t_value[1] %></td>
+              <td><%= StatisticsHelper.get_divided_number(t_value[2], t_value[0]) %></td>
+              <td><%= t_value[3] %></td>
+              <td><%= t_value[4] %></td>
+              <td>无备注</td>
+            </tr>
+          <% end %>
+        </tbody>
+        <% end %>
+        <tfoot>
+          <tr>
+            <th>NAME</th>
+            <th>Investigated Issues</th>
+            <th>Resolved Issues</th>
+            <th>Average Investigation Time(h)</th>
+            <th>Reopened Issues</th>
+            <th>Regression Issues</th>
+            <th>Note</th>
+          </tr>
+      </tfoot>
+     </table>
+    </div>
+  </div>
+</div>

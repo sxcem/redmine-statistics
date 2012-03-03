@@ -1,0 +1,52 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'demo_page', :plugin => 'redmine_statistics' %>
+  <%= stylesheet_link_tag 'demo_table', :plugin => 'redmine_statistics' %>
+  <%#= javascript_include_tag 'jquery', :plugin => 'redmine_statistics' %>
+  <%= javascript_include_tag 'jquery.dataTables.js', :plugin => 'redmine_statistics' %>
+  <script type="text/javascript" charset="utf-8">
+    j$(document).ready(function(){
+      j$('#example').dataTable();
+    });
+  </script>
+<% end %>
+
+<div id="dt_example">
+  <div id="container">
+    <div id="demo">
+      <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+        <thead>
+          <tr>
+            <th>Project Name</th>
+            <th>Target Version</th>
+            <th>Priority Name</th>
+            <th>Tracker Name</th>
+            <th>Issues Amount</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @active_issues.each do |active_issue| %>
+          <tr class="gradeA">
+            <td><%= active_issue.project_name %></td>
+            <td><%= active_issue.version_name %></td>
+            <td><%= active_issue.priority_name %></td>
+            <td><%= active_issue.tracker_name %></td>
+            <td><%= active_issue.issues_number %></td>
+            <td><%= active_issue.created_on.to_date %></td>
+          </tr>
+        <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Project Name</th>
+            <th>Target Version</th>
+            <th>Priority Name</th>
+            <th>Tracker Name</th>
+            <th>Issues Amount</th>
+            <th>Date</th>
+          </tr>
+      </tfoot>
+     </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,158 @@
+/* statistics CSS define some styles of statistics page */
+
+#statistic{
+}
+#statistic .shadow{
+    -moz-box-shadow:0 0 10px #06C;
+    -webkit-box-shadow:0 0 10px #06C;
+    box-shadow:0 0 10px #06C;
+}
+#statistic h2{
+    color:blue;
+}
+
+#statistic tr{
+    text-align: center;
+    font-size:large;
+}
+
+#statistic #incenter{
+    text-align: center;
+    position:relative;
+    top:30px;
+    margin:0 auto;
+}
+
+#statistic #atbottom{
+    display:block;
+    bottom: 15px;
+    right:15px !important;
+    position:fixed;
+}
+
+#statistic .outside{
+    font-weight:600;
+    color:brown;
+    list-style-image:url("../images/goals.png");
+}
+
+#statistic ul .inside{
+    list-style-image:url("../images/subpiece.png");
+    font-weight:normal;
+    color:black;
+}
+
+#statistic .buttons a, .buttons button{
+    display:block;
+    float:left;
+    margin:0 7px 0 0;
+    background-color:#f5f5f5;
+    border:1px solid #dedede;
+    border-top:1px solid #eee;
+    border-left:1px solid #eee;
+
+    font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    font-size:100%;
+    line-height:130%;
+    text-decoration:none;
+    font-weight:bold;
+    color:#565656;
+    cursor:pointer;
+    padding:5px 10px 6px 7px; /* Links */
+}
+#statistic .buttons button{
+    width:auto;
+    overflow:visible;
+    padding:4px 10px 3px 7px; /* IE6 */
+}
+#statistic .buttons button[type]{
+    padding:5px 10px 5px 7px; /* Firefox */
+    line-height:17px; /* Safari */
+}
+#statistic *:first-child+html button[type]{
+    padding:4px 10px 3px 7px; /* IE7 */
+}
+#statistic .buttons button img, .buttons a img{
+    margin:0 3px -3px 0 !important;
+    padding:0;
+    border:none;
+    width:16px;
+    height:16px;
+}
+
+#statistic button:hover, .buttons a:hover{
+    background-color:#dff4ff;
+    border:1px solid #c2e1ef;
+    color:#336699;
+}
+#statistic .buttons a:active{
+    background-color:#6299c5;
+    border:1px solid #6299c5;
+    color:#fff;
+}
+
+/* POSITIVE */
+
+#statistic button.positive, .buttons a.positive{
+    color:#529214;
+}
+#statistic .buttons a.positive:hover, button.positive:hover{
+    background-color:#E6EFC2;
+    border:1px solid #C6D880;
+    color:#529214;
+}
+#statistic .buttons a.positive:active{
+    background-color:#529214;
+    border:1px solid #529214;
+    color:#fff;
+}
+
+/* NEGATIVE */
+
+#statistic .buttons a.negative, button.negative{
+    color:#d12f19;
+}
+#statistic .buttons a.negative:hover, button.negative:hover{
+    background:#fbe3e4;
+    border:1px solid #fbc2c4;
+    color:#d12f19;
+}
+#statistic .buttons a.negative:active{
+    background-color:#d12f19;
+    border:1px solid #d12f19;
+    color:#fff;
+}
+
+#statistic #myheader{
+    height:85px;
+    display:block;
+    padding:0 0;
+    padding-left:20px;
+    border-bottom-style:dashed;
+    border-bottom-color:cadetblue;
+    border-bottom-width:thin;
+}
+
+#statistic #myheader .toright{
+    display:block;
+    float:right;
+    text-align:right;
+}
+
+#statistic .choice{
+    position:relative;
+    top:7px;
+    left:10px;
+    font-size:10pt;
+    color:darkblue;
+}
+
+#statistic .choice select{
+    height:18px;
+    width:auto;
+}
+
+#statistic .choice span{
+    font:bolder;
+    margin-left:5px;
+}

@@ -1,0 +1,8 @@
+<span id="l_version">目标版本:</span>
+<select name="version_id" id="s_version">
+  <% @version.each do |v| %>
+  <option value=<%= v.id %>><%= v.name %></option>
+  <% end if @version != nil%>
+  <option value=" ">未指定目标版本</option>
+  <option value="all">所有目标版本</option>
+</select>

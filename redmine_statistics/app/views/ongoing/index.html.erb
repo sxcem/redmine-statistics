@@ -1,0 +1,93 @@
+<% content_for :header_tags do %>
+ <%= stylesheet_link_tag 'statistics', :plugin => 'redmine_statistics' %>
+ <%= javascript_include_tag 'WdatePicker.js', :plugin => 'redmine_statistics' %>
+ <%= javascript_include_tag "statistics", :plugin => 'redmine_statistics' %>
+<% end %>
+
+<div id="statistic">
+  <h2>ONGOING ISSUES</h2>
+  <div id="myheader">
+    <div class="buttons">
+      <a href=<%= @back_url %> class="negative">
+        <%= image_tag('back.png', :plugin => 'redmine_statistics') %>
+        Back
+      </a>
+      <% form_tag(:action => 'index') do %>
+      <div class="choice">
+        <span>报表式样</span>
+        <select name="chart_id" style="width:10em" onchange="checkChartStyle(this)">
+          <option value="1">标准报表</option>
+          <option value="2">低活动率表</option>
+          <option value="3">按优先级饼图</option>
+          <option value="4">在其他项目下调研的问题列表</option>
+        </select>
+        <span id="l_project">项目名称:</span>
+        <select name="project_id" id="s_project" onchange="<%= remote_function(:update => "version_container",
+                                                                               :url => {:controller => 'statistics', :action => 'versions_ajax'},
+                                                                               :with => "'project_id='+value",
+                                                                               :complete => "new Effect.Highlight('version_container')")%>">
+          <% @projects.each do |project| %>
+            <option value=<%= project.id %>><%= project.name %></option>
+          <% end %>
+        </select>
+        <span id="version_container">
+        <span id="l_version">目标版本:</span>
+        <select name="version_id" id="s_version">
+          <%  @versions.each do |version| %>
+          <option value=<%= version.id %>><%= version.name %></option>
+          <% end %>
+          <option value=" ">未指定目标版本</option>
+          <option value="all">所有目标版本</option>
+        </select>
+        </span>
+        <span id="l_status">当前状态:</span>
+        <select name="status_id" id="s_status">
+          <option value="all">所有状态</option>
+          <% @statuses.each do |status| %>
+            <option value=<%= status.id %>><%= status.name %></option>
+          <% end %>
+        </select>
+        <span id="l_assigned_to">指派给:</span>
+        <select name="assigned_to_id" id="s_assigned_to">
+          <option value="all">所有人</option>
+          <% @users.each do |user| %>
+          <option value=<%= user.id %>><%= user.name %></option>
+          <% end %>
+        </select>
+        <span id="l_tracker">追踪类型:</span>
+        <select name="tracker_id" id="s_tracker">
+          <option value="all">所有类型</option>
+          <% @trackers.each do |tracker| %>
+            <option value=<%= tracker.id %>><%= tracker.name %></option>
+          <% end %>
+        </select>  
+		<br>
+		<br>		
+        <div class="toright">
+          <button type="submit" class="positive">
+            <%= image_tag('database_search.png', :plugin => 'redmine_statistics') %>
+            Generate
+          </button>
+          <button type="reset" class="positive">
+            <%= image_tag('search_cancel.png', :plugin => 'redmine_statistics') %>
+            Reset
+          </button>
+        </div>
+      <% end %>
+    </div>
+    </div>
+  </div>
+</div>
+<div>
+  <% if @chart_id == '1' %>
+    <%=  render(:partial => "ongoing") %>
+  <% elsif @chart_id == '2' %>
+    <%= render(:partial => "low_active") %>
+  <% elsif @chart_id == '3' %>
+    <%= render(:partial => "priority_number") %>
+  <% elsif @chart_id == '4' %>
+    <%= render(:partial => "other_project_inves")  %>
+  <% else %>
+    <%= render(:partial => "ongoing") %>
+  <% end %>
+</div>
